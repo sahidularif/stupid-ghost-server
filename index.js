@@ -33,7 +33,7 @@ client.connect((err) => {
         const file = req.files.file;
         const title = req.body.title;
         const description = req.body.description;
-        const author = req.body.author;
+        const author = req.body.authorreq.body.author;
         const newImg = file.data;
         const encImg = newImg.toString('base64');
 
@@ -58,11 +58,24 @@ app.get('/stories', (req, res) => {
   });
 
 
+  // Varify addmin
+app.post('/isAdmin', (req, res) => {
+  const email = req.body.email;
+  ghostAdmin.find({ email: email })
+      .toArray((err, admins) => {
+        console.log(admins);
+          res.send(admins.length > 0);
+      })
+})
+
+//
 });
+
+
 
 // Root:
 app.get('/', (req, res) => {
-    res.send('Ghost server is running');
+    res.send('THE STUPID GHOST IS ACTIVATED');
 });
 
 // Listener port
